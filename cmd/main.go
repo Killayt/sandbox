@@ -2,31 +2,22 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"net/http"
-	"strings"
 )
 
-func boot() {
-	fmt.Println("Server is listening...")
+func main() {
+	http.HandleFunc("/about", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "web/static/about.html")
+	})
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		http.ServeFile(w, r, "web/static/index.html")
+	})
 
-	if err := http.ListenAndServe(":8080", nil); err != nil {
-		log.Panic(strings.ToUpper("Error with http.ListenAndServe\n\n"), err)
-	}
-
+	fmt.Println("Listening...")
+	http.ListenAndServe(":8080", nil)
 }
 
-func main() {
-	http.HandleFunc("/contact", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "web/templates/contact.html")
-	})
-	http.HandleFunc("/about", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "web/templates/about.html")
-	})
-
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "web/templates/index.html")
-	})
-
-	boot()
+func newFunction() {
+	fs := http.FileServer(http.Dir("web/static"))
+	http.Handle("/", fs)
 }
