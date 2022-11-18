@@ -18,14 +18,14 @@ func boot() {
 
 func main() {
 	http.HandleFunc("/contact", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprint(w, "This is CONTACT page")
+		http.ServeFile(w, r, "web/templates/contact.html")
 	})
 	http.HandleFunc("/about", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprint(w, "Hello from ABOUT")
+		http.ServeFile(w, r, "web/templates/about.html")
 	})
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		http.ServeFile(w, r, "web/templates/tema.html")
+		http.ServeFile(w, r, "web/templates/index.html")
 	})
 
 	boot()
