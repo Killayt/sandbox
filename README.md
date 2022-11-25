@@ -11,8 +11,8 @@
 ### 📝 Technologies that I tried and learned
 <p>
     <ul>
-        <li>fyne</li>
+        <li>Fyne</li>
         <li>net/http</li>
-        <li>will see</li>
+        <li>MySQL</li>
     </ul>
 </p>
